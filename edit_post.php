@@ -3,7 +3,7 @@
 include 'config.php';
 
 // Memasukkan header halaman
-include './includes/header.php';
+include '.includes/header.php';
 
 // Mengambil ID postingan yang akan diedit dari parameter URL
 // ../edit_post.php?post_id=
@@ -63,33 +63,17 @@ if ($result->num_rows > 0) {
                                 // Mengambil data kategori dari database
                                 $queryCategories = "SELECT * FROM categories";
                                 $resultCategories = $conn->query($queryCategories);
-                                ?>
-                                <!-- Logic untuk menampilkan kategori -->
-                                <?php while ($category = $resultCategories->fetch_assoc()): ?>
-                                    <option value="<?= $category['id']; ?>" <?= ($category['id'] == $post['category_id']) ? 'selected' : ''; ?>>
-                                        <?= $category['name']; ?>
-                                    </option>
-                                <?php endwhile; ?>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                                // Menambahkan opsi ke dropdown
+                                if ($resultCategories->num_rows > 0) {
+                                while ($row = $resultCategories->fetch_assoc()) {
+                                // Menandai kategori yang sudah dipilih
+                                $selected = ($row['category_id'] == $post['category_id']) ? "selected" : "";
+                        echo "<option value='" . $row['category_id'] . "' $selected>" . $row['category_name'] . "</option>";
+                    }
+                }
+            ?>
+        </select>
     </div>
-</div>
-
-// Menambahkan opsi ke dropdown
-if ($resultCategories->num_rows > 0) {
-    while ($row = $resultCategories->fetch_assoc()) {
-        // Menandai kategori yang sudah dipilih
-        $selected = ($row['category_id'] == $post['category_id']) ? "selected" : "";
-        echo "<option value='" . $row['category_id'] . "' $selected>" . $row['category_name'] . "</option>";
-    }
-}
-?>
-</select>
-</div>
 
 <!-- Textarea untuk konten postingan -->
 <div class="mb-3">
@@ -108,5 +92,5 @@ if ($resultCategories->num_rows > 0) {
 
 <?php
 // Memasukkan footer halaman
-include './includes/footer.php';
+include '.includes/footer.php';
 ?>

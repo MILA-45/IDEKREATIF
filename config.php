@@ -3,7 +3,7 @@
 $host = "localhost"; // nama host server database
 $username = "root"; // username untuk akses ke database
 $password = ""; // password untuk akses ke database
-$database = "IDE_KREATIF"; // nama database yang digunakan
+$database = "ide_kreatif"; // nama database yang digunakan
 
 // membuat koneksi ke database menggunakan database mysqli
 $conn = mysqli_connect($host, $username, $password, $database);
